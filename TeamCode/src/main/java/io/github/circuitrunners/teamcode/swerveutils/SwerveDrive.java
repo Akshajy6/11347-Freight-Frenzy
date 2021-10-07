@@ -13,17 +13,25 @@ public class SwerveDrive {
         rightBack = aRightBack;
     }
 
-    public void driveSwerve(double x, double y, double rot) {
+    public void driveSwerve(double x, double y, double rot, boolean moving) {
         if (Math.hypot(y, x) <= 0.2) {
             x = 0;
             y = 0;
         }
 
         if (Math.hypot(y, x) > rot) {
-            leftFront.setDirectionRect(x, y);
-            leftBack.setDirectionRect(x, y);
-            rightFront.setDirectionRect(x, y);
-            rightBack.setDirectionRect(x, y);
+            if (!moving) {
+//                leftFront.setMovementRadial();
+//                leftBack.setMovementRadial();
+//                rightFront.setMovementRadial();
+//                rightBack.setMovementRadial();
+            }
+            else {
+                leftFront.setMovementRect(x, y);
+                leftBack.setMovementRect(x, y);
+                rightFront.setMovementRect(x, y);
+                rightBack.setMovementRect(x, y);
+            }
         }
         else {
             leftFront.forceDirectionRadial(Math.PI / 4, rot);

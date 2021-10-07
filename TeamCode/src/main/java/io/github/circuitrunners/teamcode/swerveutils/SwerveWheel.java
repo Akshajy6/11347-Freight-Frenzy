@@ -17,11 +17,11 @@ public class SwerveWheel {
         servo = aServo;
     }
 
-    public void setDirectionRect(double x, double y) {
-        setDirectionRadial(Math.atan2(y, x), Math.hypot(y, x));
+    public void setMovementRect(double x, double y) {
+        setMovementRadial(Math.atan2(y, x), Math.hypot(y, x));
     }
 
-    public void setDirectionRadial(double theta, double r) {
+    public void setMovementRadial(double theta, double r) {
         // Most of the code in this function makes sure that the wheel does not need to turn more than 90 degrees.
         currentHeading = servo.getPosition() * 2 * Math.PI; // Gets the current heading of the wheel in radians.
 
