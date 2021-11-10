@@ -13,6 +13,31 @@ public class SwerveDrive {
         rightBack = aRightBack;
     }
 
+    public void driveSwerve(double x, double y, double rot) {
+        if (Math.hypot(y, x) <= 0.2) {
+            x = 0;
+            y = 0;
+        }
+
+        if (rot <= 0.2) {
+            rot = 0;
+        }
+
+        if (x == 0 && y == 0 && rot == 0); // does absolutely nothing, takes first precedence
+        else if (Math.hypot(y, x) > rot) { // sets the robot to translate
+            leftFront.setMovementRect(x, y);
+            leftBack.setMovementRect(x, y);
+            rightFront.setMovementRect(x, y);
+            rightBack.setMovementRect(x, y);
+        }
+        else { // sets the robot to rotate
+            leftFront.setMovementRadial(Math.PI / 4, rot, true);
+            leftBack.setMovementRadial(3 * Math.PI / 4, rot, true);
+            rightFront.setMovementRadial(3 * Math.PI / 4, -rot, true);
+            rightBack.setMovementRadial(Math.PI / 4, -rot, true);
+        }
+    }
+
     public void driveSwerve(double x, double y, double rot, boolean moving) {
         if (Math.hypot(y, x) <= 0.2) {
             x = 0;
@@ -21,10 +46,10 @@ public class SwerveDrive {
 
         if (Math.hypot(y, x) > rot) {
             if (!moving) {
-//                leftFront.setMovementRadial();
-//                leftBack.setMovementRadial();
-//                rightFront.setMovementRadial();
-//                rightBack.setMovementRadial();
+                leftFront.setMovementRadial(Math.atan2(y, x), 0);
+                leftBack.setMovementRadial(Math.atan2(y, x), 0);
+                rightFront.setMovementRadial(Math.atan2(y, x), 0);
+                rightBack.setMovementRadial(Math.atan2(y, x), 0);
             }
             else {
                 leftFront.setMovementRect(x, y);
@@ -34,10 +59,10 @@ public class SwerveDrive {
             }
         }
         else {
-            leftFront.forceDirectionRadial(Math.PI / 4, rot);
-            leftBack.forceDirectionRadial(3 * Math.PI / 4, rot);
-            rightFront.forceDirectionRadial(3 * Math.PI / 4, -rot);
-            rightBack.forceDirectionRadial(Math.PI / 4, -rot);
+            leftFront.setMovementRadial(Math.PI / 4, rot, true);
+            leftBack.setMovementRadial(3 * Math.PI / 4, rot, true);
+            rightFront.setMovementRadial(3 * Math.PI / 4, -rot, true);
+            rightBack.setMovementRadial(Math.PI / 4, -rot, true);
         }
     }
 }
